@@ -23,6 +23,33 @@ init();
 animate();
 
 function init() {
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.innerHTML = `
+    <button id="cubeButton">Cube</button>
+    <button id="torusButton">Torus</button>
+    <button id="prismButton">Prism</button>
+    <button id="torusknotButton">Torus Knot</button>
+  `;
+  document.body.appendChild(buttonContainer);
+
+  // Add event listeners to buttons
+  document.getElementById('cubeButton').addEventListener('click', function() {
+    changeGeometry('cube');
+  });
+
+  document.getElementById('torusButton').addEventListener('click', function() {
+    changeGeometry('torus');
+  });
+
+  document.getElementById('prismButton').addEventListener('click', function() {
+    changeGeometry('prism');
+  });
+
+  document.getElementById('torusknotButton').addEventListener('click', function() {
+    changeGeometry('torusknot');
+  });
+  
   camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.y = 150;
   camera.position.z = 500;
