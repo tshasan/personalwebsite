@@ -70,8 +70,6 @@
 
         let camera, controls, scene, renderer, effect;
         let mesh;
-        const start = Date.now();
-
         const geometries = {
             cube: new THREE.BoxGeometry(200, 200, 200),
             torus: new THREE.TorusGeometry(100, 30, 16, 100),
@@ -85,6 +83,49 @@
         animate();
 
         function init() {
+            setupScene();
+            setupRenderer();
+            setupControls();
+            setupButtons();
+            window.addEventListener('resize', debounce(onWindowResize, 250), false);
+            document.addEventListener('keydown', onDocumentKeyDown, false);
+        }
+
+        function setupScene() {
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 150, 500);
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0, 0, 0);
+            setupLights();
+            mesh = new THREE.Mesh(currentGeometry, new THREE.MeshNormalMaterial());
+            scene.add(mesh);
+        }
+
+        function setupLights() {
+            const light1 = new THREE.PointLight(0xffffff, 1.5);
+            light1.position.set(500, 500, 500);
+            scene.add(light1);
+
+            const light2 = new THREE.PointLight(0xffffff, 0.5);
+            light2.position.set(-500, -500, -500);
+            scene.add(light2);
+        }
+
+        function setupRenderer() {
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            effect = new AsciiEffect(renderer, ' .:-+*=%@#', { invert: true });
+            effect.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(effect.domElement);
+        }
+
+        function setupControls() {
+            controls = new TrackballControls(camera, renderer.domElement);
+        }
+
+        function setupButtons() {
             const buttonContainer = document.createElement('div');
             buttonContainer.innerHTML = `
                 <button id="cubeButton">Cube</button>
@@ -100,45 +141,6 @@
                     changeGeometry(geometryKey);
                 }
             });
-
-            setupScene();
-            setupRenderer();
-            setupControls();
-            window.addEventListener('resize', onWindowResize, false);
-            document.addEventListener('keydown', onDocumentKeyDown, false);
-        }
-
-        function setupScene() {
-            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
-            camera.position.set(0, 150, 500);
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0, 0, 0);
-            setupLights();
-            mesh = new THREE.Mesh(currentGeometry, new THREE.MeshNormalMaterial());
-            scene.add(mesh);
-        }
-
-        function setupLights() {
-            const lights = [
-                new THREE.PointLight(0xffffff, 1.5, 0, 500, 500),
-                new THREE.PointLight(0xffffff, 0.5, 0, -500, -500)
-            ];
-            lights.forEach(light => scene.add(light));
-        }
-
-        function setupRenderer() {
-            renderer = new THREE.WebGLRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.domElement.style.willReadFrequently = true;
-            effect = new AsciiEffect(renderer, ' .:-+*=%@#', { invert: true });
-            effect.setSize(window.innerWidth, window.innerHeight);
-            effect.domElement.style.color = 'white';
-            effect.domElement.style.backgroundColor = 'black';
-            document.body.appendChild(effect.domElement);
-        }
-
-        function setupControls() {
-            controls = new TrackballControls(camera, effect.domElement);
         }
 
         function onWindowResize() {
@@ -159,21 +161,56 @@
         }
 
         function onDocumentKeyDown(event) {
-            const geometryKeys = ['cube', 'torus', 'prism', 'torusknot'];
-            const keyIndex = event.which - 49; // 49 is the keycode for '1'
-            if (keyIndex >= 0 && keyIndex < geometryKeys.length) {
-                changeGeometry(geometryKeys[keyIndex]);
+            switch (event.keyCode) {
+            case 37: // left arrow key
+            mesh.rotation.y -= 0.05;
+            break;
+            case 38: // up arrow key
+            mesh.rotation.x -= 0.05;
+            break;
+            case 39: // right arrow key
+            mesh.rotation.y += 0.05;
+            break;
+            case 40: // down arrow key
+            mesh.rotation.x += 0.05;
+            break;
+            case 187: // '+' key
+            case 107: // numpad '+' key
+            camera.fov = Math.max(10, camera.fov - 5);
+            camera.updateProjectionMatrix();
+            break;
+            case 189: // '-' key
+            case 109: // numpad '-' key
+            camera.fov = Math.min(100, camera.fov + 5);
+            camera.updateProjectionMatrix();
+            break;
             }
         }
 
+
         function changeGeometry(geometryKey) {
             if (currentGeometry !== geometries[geometryKey]) {
-                scene.remove(mesh);
                 currentGeometry = geometries[geometryKey];
-                mesh = new THREE.Mesh(currentGeometry, new THREE.MeshNormalMaterial());
-                scene.add(mesh);
+                mesh.geometry.dispose(); // Dispose the old geometry
+                mesh.geometry = currentGeometry;
             }
         }
+
+        function debounce(func, wait, immediate) {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                const later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                const callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        }
+ 
     </script>
 
 </body>
