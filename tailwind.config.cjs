@@ -85,21 +85,34 @@ module.exports = {
                     900: "#303030"
                 },
                 primary: {
-                    50: "#f7f7f7",
-                    100: "#e3e3e3",
-                    200: "#c8c8c8",
-                    300: "#a4a4a4",
-                    400: "#818181",
-                    500: "#737373",
-                    600: "#515151",
-                    700: "#434343",
-                    800: "#383838",
-                    900: "#313131",
-                    950: "#1a1a1a"
+                    50: "#eff6ff",   // Lightest blue
+                    100: "#dbeafe",  // Very light blue
+                    200: "#bfdbfe",  // Lighter blue
+                    300: "#93c5fd",  // Light blue
+                    400: "#60a5fa",  // Standard blue
+                    500: "#3b82f6",  // Medium blue
+                    600: "#2563eb",  // Darker blue
+                    700: "#1d4ed8",  // Dark blue
+                    800: "#1e40af",  // Deeper blue
+                    900: "#1e3a8a"   // Deepest blue
                 },
-                badge: "#F1F5F9",
-                badgeText: "#475569"
-            }
+               
+                badge: "#dbeafe",    // Example for a badge background
+                badgeText: "#1e40af" // Example for badge text
+            },
+            keyframes: {
+                colorfulBackground: {
+                  '0%, 100%': { color: 'red' },
+                  '25%': { color: 'yellow' },
+                  '50%': { color: 'blue' },
+                  '75%': { color: 'green' },
+                },
+              },
+              animation: {
+                colorfulBackground: 'colorfulBackground 5s linear infinite',
+              },
+            
+            
         }
     },
     plugins: [require("@tailwindcss/typography")]

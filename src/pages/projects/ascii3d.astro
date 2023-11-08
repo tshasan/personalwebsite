@@ -1,0 +1,180 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>My first three.js app</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        #info {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #info a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button-container {
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #367c39;
+        }
+
+        p {
+            max-width: 600px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav id="info">
+        <a href="/">Home</a>
+    </nav>
+    <p>This JavaScript code snippet is designed to create a 3D ASCII art effect using the Three.js library...</p>
+
+    <script>
+        import * as THREE from 'three';
+        import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect.js';
+        import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
+
+        let camera, controls, scene, renderer, effect;
+        let mesh;
+        const start = Date.now();
+
+        const geometries = {
+            cube: new THREE.BoxGeometry(200, 200, 200),
+            torus: new THREE.TorusGeometry(100, 30, 16, 100),
+            prism: new THREE.CylinderGeometry(100, 100, 200, 3),
+            torusknot: new THREE.TorusKnotGeometry(10, 3, 100, 16)
+        };
+
+        let currentGeometry = geometries.cube;
+
+        init();
+        animate();
+
+        function init() {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.innerHTML = `
+                <button id="cubeButton">Cube</button>
+                <button id="torusButton">Torus</button>
+                <button id="prismButton">Prism</button>
+                <button id="torusknotButton">Torus Knot</button>
+            `;
+            document.body.appendChild(buttonContainer);
+
+            buttonContainer.addEventListener('click', (event) => {
+                if (event.target.tagName === 'BUTTON') {
+                    const geometryKey = event.target.id.replace('Button', '');
+                    changeGeometry(geometryKey);
+                }
+            });
+
+            setupScene();
+            setupRenderer();
+            setupControls();
+            window.addEventListener('resize', onWindowResize, false);
+            document.addEventListener('keydown', onDocumentKeyDown, false);
+        }
+
+        function setupScene() {
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.set(0, 150, 500);
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0, 0, 0);
+            setupLights();
+            mesh = new THREE.Mesh(currentGeometry, new THREE.MeshNormalMaterial());
+            scene.add(mesh);
+        }
+
+        function setupLights() {
+            const lights = [
+                new THREE.PointLight(0xffffff, 1.5, 0, 500, 500),
+                new THREE.PointLight(0xffffff, 0.5, 0, -500, -500)
+            ];
+            lights.forEach(light => scene.add(light));
+        }
+
+        function setupRenderer() {
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.domElement.style.willReadFrequently = true;
+            effect = new AsciiEffect(renderer, ' .:-+*=%@#', { invert: true });
+            effect.setSize(window.innerWidth, window.innerHeight);
+            effect.domElement.style.color = 'white';
+            effect.domElement.style.backgroundColor = 'black';
+            document.body.appendChild(effect.domElement);
+        }
+
+        function setupControls() {
+            controls = new TrackballControls(camera, effect.domElement);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            effect.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            render();
+        }
+
+        function render() {
+            controls.update();
+            effect.render(scene, camera);
+        }
+
+        function onDocumentKeyDown(event) {
+            const geometryKeys = ['cube', 'torus', 'prism', 'torusknot'];
+            const keyIndex = event.which - 49; // 49 is the keycode for '1'
+            if (keyIndex >= 0 && keyIndex < geometryKeys.length) {
+                changeGeometry(geometryKeys[keyIndex]);
+            }
+        }
+
+        function changeGeometry(geometryKey) {
+            if (currentGeometry !== geometries[geometryKey]) {
+                scene.remove(mesh);
+                currentGeometry = geometries[geometryKey];
+                mesh = new THREE.Mesh(currentGeometry, new THREE.MeshNormalMaterial());
+                scene.add(mesh);
+            }
+        }
+    </script>
+
+</body>
+</html>

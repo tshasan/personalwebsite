@@ -1,8 +1,8 @@
 {
-  "name": "astro-lane",
+  "name": "personalwebsite",
   "type": "module",
-  "version": "1.2.0",
-  "description": "Lane - A personal portfolio landing template for developers and designers.",
+  "version": "0.0.2",
+  "description": "a website made in astro ment to showcase what i got",
   "main": "index.astro",
   "private": false,
   "keywords": [
@@ -17,8 +17,8 @@
     "tailwindcss",
     "tailwind"
   ],
-  "author": "chrstnl",
-  "homepage": "https://www.chrstnl.com/",
+  "author": "tshasan",
+  "homepage": "https://github.com/tshasan",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -40,7 +40,8 @@
     "remark-toc": "^8.0.1",
     "sass": "^1.54.4",
     "satori": "^0.4.3",
-    "tailwindcss": "^3.3.1"
+    "tailwindcss": "^3.3.1",
+    "three": "^0.158.0"
   },
   "devDependencies": {
     "@astrojs/prefetch": "^0.2.1",
