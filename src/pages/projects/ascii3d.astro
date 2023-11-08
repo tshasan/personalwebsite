@@ -2,74 +2,32 @@
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My first three.js app</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        #info {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        #info a {
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .button-container {
-            margin: 20px 0;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #367c39;
-        }
-
-        p {
-            max-width: 600px;
-            margin-top: 20px;
-        }
-    </style>
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <nav id="info">
-        <a href="/">Home</a>
+<body class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+
+    <nav id="info" class="p-4 w-full">
+        <a href="/" class="text-lg font-medium text-black hover:text-gray-300">Home</a>
     </nav>
-    <p>This JavaScript code snippet is designed to create a 3D ASCII art effect using the Three.js library...</p>
+
+    <p class="mb-4">This JavaScript code snippet is designed to create a 3D ASCII art effect using the Three.js library.</p>
+
+    <!-- Container for the Three.js scene -->
+    <div id="scene-container" class="w-1/2 h-1/2 relative mx-auto bg-black text-white"></div>
 
     <script>
         import * as THREE from 'three';
         import { AsciiEffect } from 'three/examples/jsm/effects/AsciiEffect.js';
         import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
 
+        // Define variables
         let camera, controls, scene, renderer, effect;
         let mesh;
+
+        // Define geometries
         const geometries = {
             cube: new THREE.BoxGeometry(200, 200, 200),
             torus: new THREE.TorusGeometry(100, 30, 16, 100),
@@ -77,8 +35,10 @@
             torusknot: new THREE.TorusKnotGeometry(10, 3, 100, 16)
         };
 
+        // Set current geometry
         let currentGeometry = geometries.cube;
 
+        // Initialize and animate
         init();
         animate();
 
@@ -114,15 +74,15 @@
         function setupRenderer() {
             renderer = new THREE.WebGLRenderer();
             renderer.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(renderer.domElement);
-
+            // Append the renderer to the scene container instead of the body
             effect = new AsciiEffect(renderer, ' .:-+*=%@#', { invert: true });
             effect.setSize(window.innerWidth, window.innerHeight);
-            document.body.appendChild(effect.domElement);
+            // Append the effect to the scene container instead of the body
+            document.getElementById('scene-container').appendChild(effect.domElement);
         }
 
         function setupControls() {
-            controls = new TrackballControls(camera, renderer.domElement);
+            controls = new TrackballControls(camera, effect.domElement);
         }
 
         function setupButtons() {
@@ -144,10 +104,13 @@
         }
 
         function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
+            const container = document.getElementById('scene-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
             camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            effect.setSize(window.innerWidth, window.innerHeight);
+            renderer.setSize(width, height);
+            effect.setSize(width, height);
         }
 
         function animate() {
@@ -198,18 +161,26 @@
 
         function debounce(func, wait, immediate) {
             let timeout;
-            return function() {
-                const context = this, args = arguments;
+            return function executedFunction() {
+                const context = this;
+                const args = arguments;
+                
                 const later = function() {
                     timeout = null;
                     if (!immediate) func.apply(context, args);
                 };
+
                 const callNow = immediate && !timeout;
                 clearTimeout(timeout);
                 timeout = setTimeout(later, wait);
+                
                 if (callNow) func.apply(context, args);
             };
         }
+
+        onWindowResize();
+        window.addEventListener('resize', onWindowResize, false);
+        
  
     </script>
 
