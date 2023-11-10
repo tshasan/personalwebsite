@@ -2,9 +2,15 @@
     {
         "id": "1",
         "title": "ASCII 3D",
-        "link": "../projects/ascii3d",
+        "link": "../projects/3dRender",
         "logo": "public/icons/asciiicon.png",
         "shortExcerpt": "3D shaper viewer Made with Three.js"
+    },
+    {
+        "id": "2",
+        "title": "Placeholder",
+        "link": "https://en.wikipedia.org/wiki/Special:Random",
+        "logo": "public/icons/asciiicon.png",
+        "shortExcerpt": "This is a placeholder and should take you a random to wikipedia page"
     }
-    
 ]

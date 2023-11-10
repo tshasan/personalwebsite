@@ -4,8 +4,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                body: ["Inter", "Sans Serif"],
-                title: ["Inter", "Sans Serif"]
+                body: ["IBM Plex Sans", "Sans"],
+                title: ["IBM Plex Sans", "Sans"]
             },
             fontSize: {
                 body: [

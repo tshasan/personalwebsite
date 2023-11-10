@@ -40,7 +40,7 @@
     "remark-toc": "^8.0.1",
     "sass": "^1.54.4",
     "satori": "^0.4.3",
-    "tailwindcss": "^3.3.1",
+    "tailwindcss": "^3.3.5",
     "three": "^0.158.0"
   },
   "devDependencies": {
