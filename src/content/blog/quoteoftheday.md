@@ -8,5 +8,5 @@ tags:
 heroImage: ""
 description: "This is a markdown file that will show a quote of the day"
 ---
-BRuh 
+Turns out markdown isnt a coding language like html. 
 

@@ -1,9 +1,9 @@
 [
     {
         "id": "1",
-        "title": "ASCII 3D",
+        "title": "3D Render",
         "link": "../projects/3dRender",
-        "logo": "public/icons/asciiicon.png",
+        "logo": "public/icons/3dRenderLogo.png",
         "shortExcerpt": "3D shaper viewer Made with Three.js"
     },
     {

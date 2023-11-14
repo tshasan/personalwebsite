@@ -1,4 +1,7 @@
-User-agent: *
-Allow: /
+# robots.txt for https://tshasan.com
 
-Sitemap: https://astro-lane.vercel.app/sitemap-index.xml
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://tshasan.com/sitemap.xml
