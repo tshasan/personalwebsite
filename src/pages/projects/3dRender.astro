@@ -3,26 +3,29 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My first three.js app</title>
+    <title>Mythree.js app</title>
 </head>
-<body class="absolute inset-0 -z-10 h-full w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+<body class="bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-no-repeat bg-cover h-screen">
 
-    <nav id="info" class="p-4 w-full">
+    <nav id="info" class="p-4">
         <a href="/" class="text-3xl flex justify-center items-center font-medium text-black hover:text-gray-300">Home</a>
     </nav>
 
-   
-    <h1 class="text-md flex justify-center items-center font-medium text-black">JavaScript 3D Art Creation Using Three.js</h1>
-        
-    <p  class="text-md  w-1/2 relative mx-auto flex justify-center items-center font-light text-black">This JavaScript snippet leverages the Three.js library to generate a captivating 3D art effect. Here's how you can interact with it:
-        - Desktop Interaction: Click the buttons to change the object. Use the arrow keys for rotation and the '-' and '+' keys to adjust zoom levels.
-        - Mobile Interaction: On mobile devices, you can zoom and rotate the object using your fingers for an intuitive experience.
-        Enjoy exploring 3D ASCII art in a whole new way!
-    </p>
-    <div id="scene-container" class="w-1/2 relative mx-auto bg-black text-white">
+    <div class="text-center mt-10">
+        <h1 class="text-2xl md:text-4xl font-medium text-black">JavaScript 3D Art Creation Using Three.js</h1>
+    </div>
 
-    <script src="scripts/ThreeRender.js"></script>
-    
+    <div class="text-md md:w-1/2 mx-auto mt-4 px-4">
+        <p class="font-light text-black">This JavaScript snippet leverages the Three.js library to demonstrate  3D art effects. Here's how you can interact with it:</p>
+        <ul class="list-disc list-inside mt-2">
+            <li class="mb-2">Desktop Interaction: Click the buttons to change the object. Use the arrow keys for rotation and the '-' and '+' keys to adjust zoom levels.</li>
+            <li>Mobile Interaction: On mobile devices, you can zoom and rotate the object using your fingers for an intuitive experience.</li>
+        </ul>
+        <p class="font-light text-black mt-2">Enjoy exploring 3D models and effects</p>
+    </div>
+
+    <div id="scene-container" class="w-full md:w-1/2 mx-auto bg-black text-white">
+        <script src="scripts/ThreeRender.js"></script>
     </div>
 
 </body>

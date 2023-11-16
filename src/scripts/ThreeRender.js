@@ -79,21 +79,20 @@ function setupButtons() {
     const sceneContainer = document.getElementById("scene-container");
     const buttonContainer = document.createElement("div");
     buttonContainer.classList.add(
-        "absolute",
-        "top-0",
-        "w-full",
-        "flex",
-        "justify-center",
-        "z-10"
+        "w-full", 
+        "md:w-1/2",
+        "mx-auto",
+        "mt-4", 
+        "px-4"
     );
 
     buttonContainer.innerHTML = `
-        <button id="cubeButton" class="text-md font-light m-1 p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Cube</button>
-        <button id="torusButton" class="text-md font-light m-1 p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Torus</button>
-        <button id="prismButton" class="text-md font-light m-1 p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Prism</button>
-        <button id="torusknotButton" class="text-md font-light m-1 text-black p-1 bg-gray-200 hover:bg-gray-400 rounded">Torus Knot</button>
-        <button id="toggleAsciiButton" class="text-md font-light m-1 p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Toggle ASCII Effect</button>
-        <button id="toggleWireframeButton" class="text-md font-light m-1 p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Toggle Wireframe</button>
+        <button id="cubeButton" class="text-md font-light p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Cube</button>
+        <button id="torusButton" class="text-md font-light p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Torus</button>
+        <button id="prismButton" class="text-md font-light p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Prism</button>
+        <button id="torusknotButton" class="text-md font-light  text-black p-1 bg-gray-200 hover:bg-gray-400 rounded">Torus Knot</button>
+        <button id="toggleAsciiButton" class="text-md font-light p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Toggle ASCII Effect</button>
+        <button id="toggleWireframeButton" class="text-md font-light p-1 text-black bg-gray-200 hover:bg-gray-400 rounded">Toggle Wireframe</button>
     `;
 
     sceneContainer.appendChild(buttonContainer);

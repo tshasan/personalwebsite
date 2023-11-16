@@ -1,3 +1,6 @@
+## 0.0.4
+-added some small fixs to add combatiblity for mobile version
+
 ## 0.0.3
 Stable
 Clean up 
@@ -6,11 +9,9 @@ Clean up
 -needs better ux or color choice cus its weird
 -3d implemented properly 
 
-
 ## 0.0.2
-
 alpha version of personal website
- -impelement 3d viewer project
-## 0.0.1
+-impelement 3d viewer project
 
+## 0.0.1
 -blog working
