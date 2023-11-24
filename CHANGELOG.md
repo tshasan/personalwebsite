@@ -1,3 +1,6 @@
+## 0.0.4.1
+- added a thanksgiving blogpost
+
 ## 0.0.4
 -added some small fixs to add combatiblity for mobile version
 
