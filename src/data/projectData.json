@@ -3,14 +3,14 @@
         "id": "1",
         "title": "3D Render",
         "link": "../projects/3dRender",
-        "logo": "public/icons/3dRenderLogo.png",
+        "logo": "src/icons/3dRenderLogo.png",
         "shortExcerpt": "3D shaper viewer Made with Three.js"
     },
     {
         "id": "2",
-        "title": "Placeholder",
-        "link": "https://en.wikipedia.org/wiki/Special:Random",
-        "logo": "public/icons/asciiicon.png",
+        "title": "Random Wikipedia",
+        "link": "https://en.wikipedia:x.org/wiki/Special:Random",
+        "logo": "src/icons/asciiicon.png",
         "shortExcerpt": "This is a placeholder and should take you a random to wikipedia page"
     }
 ]
